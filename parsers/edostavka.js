@@ -1,7 +1,7 @@
 const Parser = require('./index');
 const htmlParser = require('node-html-parser');
 const {defaultPrice} = require("../config/defaults");
-const {EDostavka} = require("../config/market");
+const {EDostavka, Gippo} = require("../config/market");
 
 const URL = 'https://e-dostavka.by/catalog/';
 const headers = {
@@ -25,16 +25,25 @@ const parse = (response) => {
 
     const root = htmlParser.parse(data);
 
-    const roubleElement = root.querySelector('.price');
-    const centElement = root.querySelector('.cent');
+    const priceElement = root.querySelector('meta[itemprop="price"]');
 
-    if (!roubleElement || !centElement) {
+    if (!priceElement) {
         return {...defaultPrice, market: EDostavka};
     }
 
-    const roubles = parseInt(roubleElement.childNodes?.[0]?._rawText);
-    const cents = parseInt(centElement.childNodes?.[0]?._rawText);
+    const content = priceElement._rawAttrs?.content;
 
+    if (!content) {
+        return {...defaultPrice, market: EDostavka};
+    }
+
+    const price = parseFloat(content);
+
+    if (isNaN(price)) {
+        return {...defaultPrice, market: EDostavka};
+    }
+
+    const [roubles, cents] = price.toString().split('.');
     return {
         roubles,
         cents,
