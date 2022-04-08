@@ -34,7 +34,8 @@ const pampersMap = {
                 [MarketPlace.EDostavka]: ['item_835504.html'],
                 [MarketPlace.Wildberries]: ['38664828'],
                 [MarketPlace.Ozon]: ['detskie-podguzniki-pampers-premium-care-detskie-podguzniki-obespechivayut-suhost-do-12-231352940', 'podguzniki-trusiki-pampers-premium-care-dlya-malyshey-9-15-kg-4-razmer-58-sht-301596383'],
-                [MarketPlace.Gippo]: ['pampers-podguzniki-trusiki-premium-care-pants-d-malch-i-devochek-maxi-9-15-kg-upakovka-58-8006540186176/']
+                [MarketPlace.Gippo]: ['pampers-podguzniki-trusiki-premium-care-pants-d-malch-i-devochek-maxi-9-15-kg-upakovka-58-8006540186176/'],
+                [MarketPlace.Green]: ['137740562'],
             },
             '5-34': {
                 [MarketPlace.DetskiyMir]: ['3960217'],

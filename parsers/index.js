@@ -11,7 +11,7 @@ class Parser {
     }
 
     async getData() {
-        const responses = await Promise.all(this.ids.map(id => {
+        const responses = await Promise.all((this.ids ?? []).map(id => {
             return !this.sendRequest ?
                 axios.get(`${this.url}${id}`, {headers: this.headers}) :
                 this.sendRequest(this.url, id);
