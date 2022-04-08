@@ -7,6 +7,7 @@ const MarketPlace = {
     Buslik: 6,
     DetskiyMir: 7,
     Ozon : 8,
+    Gippo : 9,
 }
 
 module.exports = MarketPlace;

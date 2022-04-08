@@ -23,7 +23,7 @@ const parse = (response) => {
         return {...defaultPrice, market: DetskiyMir};
     }
 
-    const [roubles, cents] = price.toString().split('.');
+    const [roubles, cents] = price.toFixed(2).split('.');
 
     return {
         roubles: parseInt(roubles),

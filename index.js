@@ -8,13 +8,14 @@ const milaParser = require('./parsers/mila');
 const buslikParser = require('./parsers/buslik');
 const detskiyMirParser = require('./parsers/detskiymir');
 const ozonParser = require('./parsers/ozon');
+const gippoParser = require('./parsers/gippo');
 
 const pampersMap = require('./config/shop-ids');
 const MarketPlace = require("./config/market");
 const MarketName = require("./config/marketname");
 
 (async () => {
-    const pampersType = '5-34';
+    const pampersType = '4-76';
 
     const shopIds = pampersMap.Pampers.PremiumCare[pampersType];
 
@@ -31,6 +32,7 @@ const MarketName = require("./config/marketname");
         buslikParser(shopIds[MarketPlace.Buslik]).getPrices(),
         detskiyMirParser(shopIds[MarketPlace.DetskiyMir]).getPrices(),
         ozonParser(shopIds[MarketPlace.Ozon]).getPrices(),
+        gippoParser(shopIds[MarketPlace.Gippo]).getPrices(),
     ]);
 
 

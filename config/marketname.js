@@ -9,5 +9,6 @@ const MarketName = {
     [MarketPlace.EDostavka]: 'Евроопт',
     [MarketPlace.Wildberries]: 'Wildberries',
     [MarketPlace.Ozon]: 'Ozon',
+    [MarketPlace.Gippo]: 'Гиппо',
 }
 module.exports = MarketName;
