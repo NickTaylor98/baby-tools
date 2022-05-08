@@ -17,7 +17,7 @@ const MarketName = require("./config/marketname");
 
 (async () => {
 
-    const shopIds = productsMap.Pampers.PremiumCare['4-38'];
+    const shopIds = productsMap.Pampers.PremiumCare["5-20"];
 
     if (!shopIds) {
         return;

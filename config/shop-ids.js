@@ -44,6 +44,11 @@ const productsMap = {
                 [MarketPlace.Gippo]: ['detskie-tovary-igrushki-isg221/detskoe-pitanie-isg349/smesi-isg190/sukhoy-bystrorastvor-mol-napitok-quot-nestogen-3-detskoe-molochko-quot-s-prebiotikami-i-laktobakter--4600680012179/'],
                 [MarketPlace.Buslik]: ['pitanie_i_kormlenie/molochnye_smesi/smesi_dlya_detey_posle_goda/smes_nestogen_3_s_12_mes_600g/'],
                 [MarketPlace.Wildberries]: ['73476604', '70916397', '64037629'],
+            },
+            900: {
+                [MarketPlace.DetskiyMir]: ['3903749'],
+                [MarketPlace.EDostavka]: ['item_1319974.html'],
+                [MarketPlace.Wildberries]: ['43744219', '70916405'],
             }
         }
     },
@@ -86,7 +91,8 @@ const productsMap = {
                 [MarketPlace.Green]: ['137740562'],
             },
             '5-20': {
-                [MarketPlace.Green]: ['113469292']
+                [MarketPlace.Green]: ['113469292'],
+                [MarketPlace.DetskiyMir] : ['541761'],
             },
             '5-34': {
                 [MarketPlace.DetskiyMir]: ['3960217'],
@@ -105,7 +111,8 @@ const productsMap = {
                 [MarketPlace.Green]: ['137740563'],
                 [MarketPlace.Wildberries]: ['38667571', '70634348'],
                 [MarketPlace._21Vek]: ['premiumcare5junior_pampers_02.html'],
-                [MarketPlace.Buslik]: ['podguzniki/trusiki_podguzniki/trusiki_podguzniki_pampers_premium_care_jumbo_5_12_17_kg_52_sht/']
+                [MarketPlace.Buslik]: ['podguzniki/trusiki_podguzniki/trusiki_podguzniki_pampers_premium_care_jumbo_5_12_17_kg_52_sht/'],
+                [MarketPlace.DetskiyMir] : ['3960213']
             }
         }
     }
