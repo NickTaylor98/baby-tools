@@ -16,10 +16,8 @@ const MarketPlace = require("./config/market");
 const MarketName = require("./config/marketname");
 
 (async () => {
-    // const pampersType = '4-38';
-    // const shopIds = productsMap.Pampers.PremiumCare[pampersType];
 
-    const shopIds = productsMap.Nestogen["3"]["300"];
+    const shopIds = productsMap.Pampers.PremiumCare['4-38'];
 
     if (!shopIds) {
         return;
