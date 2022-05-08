@@ -4,7 +4,7 @@ const htmlParser = require('node-html-parser');
 const {defaultPrice} = require("../config/defaults");
 const {Buslik} = require("../config/market");
 
-const url = 'https://buslik.by/catalog/podguzniki/trusiki_podguzniki/';
+const url = 'https://buslik.by/catalog/';
 
 const parse = (response) => {
     const data = response.data;

@@ -7,14 +7,22 @@ const {Mila} = require("../config/market");
 const url = 'https://api.mila.by/get-all-offer/';
 
 const sendRequest = (url, id) => {
-    const response = axios.post(url, {product_id: id});
+    const response = axios.post(url, {product_id: id, storeId: 1});
     return response;
 }
 
 const parse = (response) => {
     const data = response.data;
 
-    const price = data?.offer?.PRICES?.PRICE;
+    const PRICES = data?.offer?.PRICES;
+
+    const isAvailable = !!PRICES?.CAN_BUY;
+
+    if (!isAvailable) {
+        return {...defaultPrice, market: Mila};
+    }
+
+    const price = PRICES?.PRICE;
 
     if (!price) {
         return {...defaultPrice, market: Mila}

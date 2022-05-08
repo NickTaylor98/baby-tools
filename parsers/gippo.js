@@ -4,7 +4,7 @@ const htmlParser = require('node-html-parser');
 const {defaultPrice} = require("../config/defaults");
 const {Gippo} = require("../config/market");
 
-const url = 'https://gippo-market.by/catalog/detskie-tovary-igrushki-isg221/podguzniki-pelenki--isg112/';
+const url = 'https://gippo-market.by/catalog/';
 
 const parse = (response) => {
     const data = response.data;

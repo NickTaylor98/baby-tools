@@ -11,20 +11,21 @@ const ozonParser = require('./parsers/ozon');
 const gippoParser = require('./parsers/gippo');
 const greenParser = require('./parsers/green');
 
-const pampersMap = require('./config/shop-ids');
+const productsMap = require('./config/shop-ids');
 const MarketPlace = require("./config/market");
 const MarketName = require("./config/marketname");
 
 (async () => {
-    const pampersType = '4-38';
+    // const pampersType = '4-38';
+    // const shopIds = productsMap.Pampers.PremiumCare[pampersType];
 
-    const shopIds = pampersMap.Pampers.PremiumCare[pampersType];
+    const shopIds = productsMap.Nestogen["3"]["300"];
 
     if (!shopIds) {
         return;
     }
 
-    const prices = await Promise.all([
+    const prices = await Promise.allSettled([
         wildBerriesParser(shopIds[MarketPlace.Wildberries]).getPrices(),
         _21VekParser(shopIds[MarketPlace._21Vek]).getPrices(),
         eDostavkaParser(shopIds[MarketPlace.EDostavka]).getPrices(),
@@ -37,9 +38,12 @@ const MarketName = require("./config/marketname");
         greenParser(shopIds[MarketPlace.Green]).getPrices(),
     ]);
 
-
-    console.log(`Тип: Трусики Pampers Premium Care ${pampersType}`);
-    _.sortBy(prices.flat().filter(price => price.roubles), ['roubles', 'cents'])
+    _.sortBy(prices
+            .filter(price => price.status === 'fulfilled')
+            .map(price => price.value)
+            .flat()
+            .filter(price => price.roubles),
+        ['roubles', 'cents'])
         .forEach(price => console.log(`Цена: ${price.roubles}р. ${price.cents}к. в магазине "${MarketName[price.market]}"`));
 })();
 

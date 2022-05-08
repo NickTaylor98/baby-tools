@@ -4,7 +4,7 @@ const htmlParser = require('node-html-parser');
 const {defaultPrice} = require("../config/defaults");
 const {Ostrov} = require("../config/market");
 
-const url = 'https://ostrov-shop.by/catalog/tovary-dlya-detey/gigiena-i-ukhod-za-detmi/podguzniki-trusiki/';
+const url = 'https://ostrov-shop.by/catalog/';
 
 const parse = (response) => {
     const data = response.data;

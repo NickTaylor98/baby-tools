@@ -1,25 +1,16 @@
 const Parser = require('./index');
-const htmlParser = require('node-html-parser');
 
 const {defaultPrice} = require("../config/defaults");
 const {DetskiyMir} = require("../config/market");
 
-const url = 'https://by.detmir.com/product/index/id/';
+const url = 'https://api.by.detmir.com/v2/products/';
 
 const parse = (response) => {
     const data = response.data;
 
-    const root = htmlParser.parse(data);
+    const price = data?.item?.price?.price;
 
-    const priceElement = root.querySelector('.Co');
-
-    if (!priceElement) {
-        return {...defaultPrice, market: DetskiyMir};
-    }
-
-    const price = parseFloat((priceElement.childNodes?.[0]?._rawText || '').replace(',', '.'));
-
-    if (isNaN(price)) {
+    if (!price) {
         return {...defaultPrice, market: DetskiyMir};
     }
 
