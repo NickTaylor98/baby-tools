@@ -11,7 +11,7 @@ const parse = (response) => {
 
     const root = htmlParser.parse(data);
 
-    const priceElement = root.querySelector('.wk9, .w9k');
+    const priceElement = root.querySelector('.z5k, .kz6');
 
     if (!priceElement) {
         return {...defaultPrice, market: Ozon};

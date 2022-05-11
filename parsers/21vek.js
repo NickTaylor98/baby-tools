@@ -4,7 +4,7 @@ const htmlParser = require('node-html-parser');
 const {defaultPrice} = require("../config/defaults");
 const {_21Vek} = require("../config/market");
 
-const url = 'https://www.21vek.by/diapers/';
+const url = 'https://www.21vek.by/';
 
 const parse = (response) => {
     const data = response.data;

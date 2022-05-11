@@ -6,8 +6,8 @@ const {Mila} = require("../config/market");
 
 const url = 'https://api.mila.by/get-all-offer/';
 
-const sendRequest = (url, id) => {
-    const response = axios.post(url, {product_id: id, storeId: 1});
+const sendRequest = async (url, id) => {
+    const response = await axios.post(url, {product_id: id, storeId: 1});
     return response;
 }
 

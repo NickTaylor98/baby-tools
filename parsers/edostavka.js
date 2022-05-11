@@ -46,7 +46,7 @@ const parse = (response) => {
     const [roubles, cents] = price.toString().split('.');
     return {
         roubles,
-        cents,
+        cents: parseInt(cents.length === 1 ? cents + '0' : cents),
         market: EDostavka,
     };
 }

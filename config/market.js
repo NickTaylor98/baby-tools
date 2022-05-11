@@ -9,6 +9,7 @@ const MarketPlace = {
     Ozon : 8,
     Gippo : 9,
     Green : 10,
+    _7745 : 11,
 }
 
 module.exports = MarketPlace;
