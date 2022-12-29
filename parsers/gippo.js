@@ -11,7 +11,13 @@ const parse = (response) => {
 
     const root = htmlParser.parse(data);
 
-    const priceElement = root.querySelector('.price');
+    const productElement = root.querySelector('.product-page__info-top');
+
+    if (!productElement) {
+        return {...defaultPrice, market: Gippo};
+    }
+
+    const priceElement = productElement.querySelector('.price');
 
     if (!priceElement) {
         return {...defaultPrice, market: Gippo};
@@ -23,7 +29,7 @@ const parse = (response) => {
         return {...defaultPrice, market: Gippo};
     }
 
-    const [roubles, cents] = price.toString().split('.');
+    const [roubles, cents] = price.toFixed(2).split('.');
 
     return {
         roubles: parseInt(roubles),

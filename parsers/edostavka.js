@@ -1,57 +1,73 @@
-const Parser = require('./index');
-const htmlParser = require('node-html-parser');
-const {defaultPrice} = require("../config/defaults");
-const {EDostavka, Gippo} = require("../config/market");
+const Parser = require("./index");
+const htmlParser = require("node-html-parser");
+const { defaultPrice } = require("../config/defaults");
+const { EDostavka } = require("../config/market");
+const axios = require("../config/axios");
 
-const URL = 'https://e-dostavka.by/catalog/';
-const headers = {
-    "accept": "*/*",
-    "accept-language": "ru-RU,ru;q=0.9",
-    "cache-control": "no-cache",
-    "pragma": "no-cache",
-    "sec-ch-ua": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"100\", \"Google Chrome\";v=\"100\"",
-    "sec-ch-ua-mobile": "?0",
-    "sec-ch-ua-platform": "\"Linux\"",
-    "sec-fetch-dest": "empty",
-    "sec-fetch-mode": "cors",
-    "sec-fetch-site": "same-origin",
-    "x-requested-with": "XMLHttpRequest",
-    "Referer": "https://e-dostavka.by/",
-    "Referrer-Policy": "strict-origin-when-cross-origin"
+const URL = "https://api.static.edostavka.by/rest/Json";
+
+const sendRequest = async (url, id) => {
+  const response = await axios.post(
+    url,
+    {
+      Packet: {
+        MethodName: "EMark.GetListing",
+        JWT: null,
+        ServiceNumber: "01093ABC-6B36-450D-8FAF-EA32BCC2EAE8",
+        Data: {
+          Limit: 20,
+          ProductId: [id],
+          SessionGuid: "4FB6A39C-90D4-433A-956F-5B388760415F",
+        },
+      },
+      CRC: "",
+    },
+    {
+      headers: {
+        accept: "*/*",
+        "accept-language": "ru-RU,ru;q=0.9",
+        "cache-control": "no-cache",
+        "content-type": "text/plain;charset=UTF-8",
+        pragma: "no-cache",
+        "sec-ch-ua":
+          '"Not?A_Brand";v="8", "Chromium";v="108", "Google Chrome";v="108"',
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": '"Linux"',
+        "sec-fetch-dest": "empty",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-site",
+        origin: "https://www.edostavka.by",
+        referer: `https://edostavka.by/product/${id}`,
+      },
+    }
+  );
+  return response;
 };
 
 const parse = (response) => {
-    const data = response.data;
+  const data = response.data;
 
-    const root = htmlParser.parse(data);
+  const product = data?.Table?.[0]?.Products?.[0];
 
-    const priceElement = root.querySelector('meta[itemprop="price"]');
+  if (!product) {
+    return { ...defaultPrice, market: EDostavka };
+  }
 
-    if (!priceElement) {
-        return {...defaultPrice, market: EDostavka};
-    }
+  const price = product.Price?.[0]?.Price;
 
-    const content = priceElement._rawAttrs?.content;
+  if (!price) {
+    return { ...defaultPrice, market: EDostavka };
+  }
 
-    if (!content) {
-        return {...defaultPrice, market: EDostavka};
-    }
+  const [roubles, cents] = price.toString().split(".");
+  return {
+    roubles: parseInt(roubles),
+    cents: parseInt(cents.length === 1 ? cents + "0" : cents),
+    market: EDostavka,
+  };
+};
 
-    const price = parseFloat(content);
-
-    if (isNaN(price)) {
-        return {...defaultPrice, market: EDostavka};
-    }
-
-    const [roubles, cents] = price.toString().split('.');
-    return {
-        roubles,
-        cents: parseInt(cents.length === 1 ? cents + '0' : cents),
-        market: EDostavka,
-    };
-}
-
-const eDostavkaParser = (ids) => new Parser(URL, ids, parse, headers);
+const eDostavkaParser = (ids) =>
+  new Parser(URL, ids, parse, undefined, sendRequest);
 
 module.exports = eDostavkaParser;
-
